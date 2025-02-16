@@ -20,21 +20,20 @@ pipeline {
                 sh 'sudo docker images | grep "mynewimage"'
             }
         }
+        stage("Approval Required") {
+            steps {
+                script {
+                    input message: 'Do you want to proceed to the next stage?', ok: 'Yes'
+                }
+            }
+        }
         stage("Build Container") {
             steps {
                 sh 'echo "Building Docker container"'
                 sh "echo $BUILD_NUMBER"
                 sh "sudo docker rm -f \$(sudo docker ps -qa)"
-                sh 'sudo docker run -d --name container_$BUILD_NUMBER -p 3000:30$BUILD_NUMBER mynewimage:v$BUILD_NUMBER'
+                sh 'sudo docker run -d --name container_$BUILD_NUMBER -p 3000:3000 mynewimage:v$BUILD_NUMBER'
                 sh 'sudo docker ps -a | grep $BUILD_NUMBER'
-            }
-        }
-        stage("Inform Contributor"){
-            steps {
-                emailext body: '''Hello Soumya,
-                The Build is completed. Please check the status.
-                Thanks,
-                Automation Team''', recipientProviders: [contributor()], subject: 'Status Of Deployment', to: 'soumyabiswas37@gmail.com'
             }
         }
         stage("Clean Workspace") {
