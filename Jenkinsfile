@@ -23,7 +23,7 @@ pipeline {
         stage("Build Container") {
             steps {
                 sh 'echo "Building Docker container"'
-                sh 'sudo docker run -d --name container1 -p 3000:3000 mycontainer1:v1'
+                sh 'sudo docker run -d --name container1 -p 3000:3000 mynewimage:v1'
                 sh 'sudo docker ps -a | grep container1'
             }
         }
