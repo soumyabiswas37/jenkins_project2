@@ -17,7 +17,7 @@ pipeline {
                 sh 'sudo git clone https://github.com/soumyabiswas37/jenkins_project2.git'
                 sh 'echo "Bilding Docker image and check the status"'
                 sh 'sudo docker build -t mynewimage:v1 .'
-                sh 'sudo docker images | grep "mynewimage:v1"'
+                sh 'sudo docker images | grep "mynewimage"'
             }
         }
         stage("Build Container") {
