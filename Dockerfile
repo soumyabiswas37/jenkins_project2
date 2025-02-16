@@ -6,9 +6,9 @@ RUN npm install express
 
 RUN mkdir /public
 
-RUN cp server.js /project
+COPY server.js /project
 
-RUN cp index.html /public
+COPY index.html /public
 
 EXPOSE 3000
 
