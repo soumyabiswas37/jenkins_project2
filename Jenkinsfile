@@ -28,6 +28,14 @@ pipeline {
                 sh 'sudo docker ps -a | grep $BUILD_NUMBER'
             }
         }
+        stage("Inform Contributor"){
+            steps {
+                emailext body: '''Hello Soumya,
+                The Build is completed. Please check the status.
+                Thanks,
+                Automation Team''', recipientProviders: [contributor()], subject: 'Status Of Deployment', to: 'soumyabiswas37@gmail.com'
+            }
+        }
         stage("Clean Workspace") {
             steps {
                 cleanWs()
