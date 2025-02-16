@@ -31,7 +31,6 @@ pipeline {
             steps {
                 sh 'echo "Building Docker container"'
                 sh "echo $BUILD_NUMBER"
-                sh "sudo docker rm -f \$(sudo docker ps -qa)"
                 sh 'sudo docker run -d --name container_$BUILD_NUMBER -p 30$BUILD_NUMBER:3000 mynewimage:v$BUILD_NUMBER'
                 sh 'sudo docker ps -a | grep $BUILD_NUMBER'
             }
