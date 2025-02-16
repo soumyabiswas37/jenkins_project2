@@ -10,9 +10,13 @@ pipeline {
                 sh "sudo service docker status"
             }
         }
-        stage("Verify image status") {
+        stage("Pull,Build,Verify image") {
             steps {
-                sh 'sudo docker images | grep mycontainer1'
+                sh 'echo "Pulling Docker image"'
+                sh 'sudo git init'
+                sh 'sudo git clone https://github.com/soumyabiswas37/jenkins_project2.git'
+                sh 'sudo docker build -t mynewimage:v1 .'
+                sh 'sudo docker images | grep "mynewimage:v1"'
             }
         }
         stage("Build Container") {
