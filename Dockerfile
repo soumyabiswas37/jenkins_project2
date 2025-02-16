@@ -8,7 +8,7 @@ RUN mkdir /public
 
 COPY server.js /project
 
-COPY index.html /public
+COPY index.html /project/public/
 
 EXPOSE 3000
 
