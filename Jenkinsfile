@@ -27,8 +27,9 @@ pipeline {
                 sh 'sudo docker ps -a | grep container1'
             }
         }
-        step {
-            cleanWs()
+        stage("Clean Workspace") {
+            steps {
+                cleanWs()
+            }
+}
     }
-}
-}
