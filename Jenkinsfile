@@ -3,11 +3,13 @@ pipeline {
         label 'Build'
     }
     stages {
-        stage ("Installing Git and Docker") {
-            steps {
-                sh "sudo yum install docker git -y"
-                sh "sudo service docker start"
-                sh "sudo service docker status"
+        retry(conditions: [nonresumable()], count: 4) {
+            stage ("Installing Git and Docker") {
+                steps {
+                    sh "sudo yum install docker git -y"
+                    sh "sudo service docker start"
+                    sh "sudo service docker status"
+                }
             }
         }
         stage("Pull,Build,Verify image") {
