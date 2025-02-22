@@ -3,9 +3,9 @@ pipeline {
         label 'Build'
     }
     stages {
-        retry(conditions: [nonresumable()], count: 4) {
-            stage ("Installing Git and Docker") {
-                steps {
+        stage ("Installing Git and Docker") {
+            steps {
+                retry(conditions: [nonresumable()], count: 4) {
                     sh "sudo yum install docker git -y"
                     sh "sudo service docker start"
                     sh "sudo service docker status"
